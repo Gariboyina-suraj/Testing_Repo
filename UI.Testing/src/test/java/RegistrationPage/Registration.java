@@ -43,7 +43,7 @@ public class Registration {
 	}
 	
 	@Test
-	public void invalidEmail() throws InterruptedException {
+	public void invalidEmail() {
 		driver.findElement(By.linkText("My Account")).click();
 		String userName="abc9398223@Test";
 		String password="Admin@123Admin1afsedf";
@@ -51,6 +51,16 @@ public class Registration {
 		driver.findElement(By.id("reg_password")).sendKeys(password,Keys.ENTER);
 		String Error=driver.findElement(By.xpath("//ul[@class='woocommerce-error']/li")).getText();
 		Assert.assertEquals(Error, "Error: Please provide a valid email address.");
+	}
+	@Test
+	public void emptyEmail() {
+		driver.findElement(By.linkText("My Account")).click();
+		String userName="";
+		driver.findElement(By.id("reg_email")).sendKeys(userName);
+		driver.findElement(By.xpath("//input[@name='register']")).click();
+		String Error=driver.findElement(By.xpath("//ul[@class='woocommerce-error']/li")).getText();
+		Assert.assertEquals(Error, "Error: Please provide a valid email address.");
+		
 	}
 
 }
